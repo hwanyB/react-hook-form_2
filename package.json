@@ -55,6 +55,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "@vue/compiler-sfc": "^3.2.37",
+    "crypto-random-string": "^5.0.0",
+    "lodash": "^4.17.21",
+    "lowdb": "^1.0.0",
     "vue": "^2.6.10"
   }
 }
