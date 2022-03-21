@@ -9,6 +9,9 @@ require("@babel/polyfill");
 module.exports = (env, opts) => {
   const config = {
     // 개발용, 제품용 중복되는 옵션들..
+    resolve: {
+      extensions: [".vue", ".js"],
+    },
     entry: {
       app: ["@babel/polyfill", path.join(__dirname, "main.js")],
     },
