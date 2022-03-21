@@ -3,15 +3,16 @@
 </template>
 <script>
 export default {
-    data (){
+    data() {
         return {
-            msg: 'Hello Vuddde!'
+            msg: 'Hello Vue!'
         }
     }
 }
 </script>
 <style scoped lang="scss">
 $color: red;
+
 h1 {
     color: $color;
     display: flex;
