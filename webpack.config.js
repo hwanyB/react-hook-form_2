@@ -6,7 +6,6 @@ const { VueLoaderPlugin } = require("vue-loader");
 const merge = require("webpack-merge");
 require("@babel/polyfill");
 
-
 module.exports = (env, opts) => {
   const config = {
     // 개발용, 제품용 중복되는 옵션들..
@@ -30,7 +29,16 @@ module.exports = (env, opts) => {
         },
         {
           test: /\.css$/,
-          use: ["vue-style-loader", "css-loader"],
+          use: ["vue-style-loader", "css-loader", "postcss-loader"],
+        },
+        {
+          test: /\.scss$/,
+          use: [
+            "vue-style-loader",
+            "css-loader",
+            "postcss-loader",
+            "sass-loader",
+          ],
         },
       ],
     },
