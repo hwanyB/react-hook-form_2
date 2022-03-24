@@ -1,6 +1,8 @@
 <template>
     <div>
-        <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" />
+        <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
+            @delete-todo="deleteTodo" />
+        <hr />
         <todo-creator @create-todo="createTodo" />
     </div>
 </template>
@@ -30,8 +32,8 @@ export default {
     methods: {
         initDB() {
             const adapter = new LocalStorage('todo-app')
-            const hasTodos = this.has('todos').value()
             this.db = lowdb(adapter)
+            const hasTodos = this.db.has('todos').value()
 
             if (hasTodos) {
                 this.todos = _cloneDeep(this.db.getState().todos)
@@ -47,11 +49,17 @@ export default {
             const newTodo = {
                 id: cryptoRandomString({ length: 10 }),
                 title,
-                createAt: new Date(),
+                createdAt: new Date(),
                 updatedAt: new Date(),
                 done: false,
             }
             this.db.get('todos').push(newTodo).write()
+        },
+        updateTodo (){
+            console.log("update todo")
+        },
+        deleteTodo(){
+            console.log("delelte todo")
         }
     }
 }
