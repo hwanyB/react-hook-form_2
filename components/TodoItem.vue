@@ -78,9 +78,9 @@ export default {
             const isSame = date.isSame(this.todo.updatedAt)
 
             if (isSame) {
-                return date.format('YY년 M월 D일')
+                return date.format('YY년 M월 D일 h:mm a')
             } else {
-                return `${date.format('YY년 M월 D일')} (edited)`
+                return `${date.format('YY년 M월 D일 h:mm a')} (edited)`
             }
         }
     }
