@@ -8,7 +8,7 @@
             </div>
             <div class="actions">
                 <input type="checkbox" v-model="allDone" />
-                <button>완료된 항목 삭제</button>
+                <button @click="clearCompleted">완료된 항목 삭제</button>
             </div>
         </div>
         <hr />
@@ -20,6 +20,7 @@
         <todo-creator class="todo-app__creator" @create-todo="createTodo" />
     </div>
 </template>
+
 <script>
 import lowdb from 'lowdb'
 import LocalStorage from 'lowdb/adapters/LocalStorage'
@@ -28,6 +29,7 @@ import _cloneDeep from 'lodash/cloneDeep'
 import _find from 'lodash/find'
 import _assign from 'lodash/assign'
 import _findIndex from 'lodash/findIndex'
+import _forEachRight from 'lodash/forEachRight'
 
 import TodoItem from "./TodoItem";
 import TodoCreator from "./TodoCreator";
@@ -120,6 +122,13 @@ export default {
             }).write()
 
             this.todos = _cloneDeep(newTodos)
+        },
+        clearCompleted () {
+            _forEachRight(this.todos, todo => {
+                if(todo.done) {
+                    this.deleteTodo(todo)
+                }
+            })
         }
     }
 }
