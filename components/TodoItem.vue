@@ -1,5 +1,5 @@
 <template>
-    <div id="todo-item">
+    <div class="todo-item" :class="{ done }">
         <div class="item__inner" item--edit v-if="isEditMode">
             <input autofocus="true" type="text" :value="editedTitle" @input="editedTitle = $event.target.value"
                 @keypress.enter="editedTodo" @keypress.esc="offEditMode" />
@@ -25,6 +25,7 @@
 
     </div>
 </template>
+
 <script>
 import dayjs from 'dayjs'
 export default {
@@ -39,11 +40,11 @@ export default {
     },
     methods: {
         editedTodo() {
-            if(this.todo.title !== this.editedTitle){
+            if (this.todo.title !== this.editedTitle) {
                 this.updateTodo({
-                title: this.editedTitle,
-                updatedAt: new Date()
-            })
+                    title: this.editedTitle,
+                    updatedAt: new Date()
+                })
             }
             this.offEditMode()
         },
@@ -86,3 +87,23 @@ export default {
     }
 }
 </script>
+
+<style scoped lang="scss">
+.todo-item {
+    margin-bottom: 10px;
+
+    .item__inner {
+        display: flex;
+    }
+
+    .item__date {
+        font-size: 11px;
+    }
+
+    &.done {
+        .item__title {
+            text-decoration: line-through;
+        }
+    }
+}
+</style>
