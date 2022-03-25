@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="todo-app__list">
+        <div ref="todoAppList" class="todo-app__list">
             <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
                 @delete-todo="deleteTodo" />
         </div>
@@ -94,6 +94,10 @@ export default {
     created() {
         this.initDB()
     },
+    // mounted() {
+    //         const todoAppList = this.$refs.todoAppList
+    //         console.log(todoAppList.scrollTop)
+    // },
     methods: {
         initDB() {
             const adapter = new LocalStorage('todo-app')
@@ -147,15 +151,15 @@ export default {
             })
         },
         scrollToBottom() {
-            scrollTo(
+            this.$refs.todoAppList.scrollTo(
                 0,
-                document.body.scrollHeight
+                this.$refs.todoAppList.scrollHeight
             )
         },
         scrollToTop() {
-            scrollTo(0, 0)
-        }
-    }
+            this.$refs.todoAppList.scrollTo(0, 0)
+        },
+    },
 }
 </script>
 <style lang="scss">

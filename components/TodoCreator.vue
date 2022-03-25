@@ -22,6 +22,9 @@ export default {
             }
             this.$emit('create-todo', this.title)
             this.title = ''
+            this.$nextTick(() => {
+                this.$parent.scrollToBottom()
+            })
         }
     }
 }
