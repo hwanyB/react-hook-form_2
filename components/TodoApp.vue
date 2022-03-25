@@ -1,23 +1,43 @@
 <template>
     <div class="todo-app">
+        <h1>안녕하세요 환희님!</h1>
+        <h3>해야 할 일이 {{ activeCount }}개 있습니다.</h3>
+        <todo-creator class="todo-app__creator" @create-todo="createTodo" />
         <div class="todo-app__actions">
             <div class="filters">
-                <button :class="{ active: filter === 'all'}" @click="changeFilter('all')">모든 항목 ({{ total }})</button>
-                <button :class="{ active: filter === 'active'}" @click="changeFilter('active')">해야 할 항목 ({{ activeCount }})</button>
-                <button :class="{ active: filter === 'completed'}" @click="changeFilter('completed')">완료된 항목 ({{ completedCount }})</button>
+                <button :class="{ active: filter === 'all' }" @click="changeFilter('all')">모든 항목 ({{ total }})</button>
+                <button :class="{ active: filter === 'active' }" @click="changeFilter('active')">해야 할 항목 ({{ activeCount
+                }})</button>
+                <button :class="{ active: filter === 'completed' }" @click="changeFilter('completed')">완료된 항목 ({{
+                        completedCount
+                }})</button>
             </div>
-            <div class="actions">
+            <!-- <div class="actions">
                 <input type="checkbox" v-model="allDone" />
                 <button @click="clearCompleted">완료된 항목 삭제</button>
+            </div> -->
+            <div class="actions clearfix">
+                <label class="float--left">
+                    <input v-model="allDone" type="checkbox" />
+                    <span class="icon"><i class="material-icons-round">done_all</i></span>
+                </label>
+                <div class="float--right clearfix">
+                    <button class="btn float--left" @click="scrollToTop">
+                        <i class="material-icons-round">expand_less</i>
+                    </button>
+                    <button class="btn float--left" @click="scrollToBottom">
+                        <i class="material-icons-round">expand_more</i>
+                    </button>
+                    <button class="btn btn--danger float--left" @click="clearCompleted">
+                        <i class="material-icons-round">delete_sweep</i>
+                    </button>
+                </div>
             </div>
         </div>
-        <hr />
         <div class="todo-app__list">
             <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
                 @delete-todo="deleteTodo" />
         </div>
-        <hr />
-        <todo-creator class="todo-app__creator" @create-todo="createTodo" />
     </div>
 </template>
 
@@ -57,20 +77,20 @@ export default {
                     return this.todos.filter(todo => todo.done)
             }
         },
-        total (){
+        total() {
             return this.todos.length
         },
-        activeCount (){
+        activeCount() {
             return this.todos.filter(todo => !todo.done).length
         },
-        completedCount (){
+        completedCount() {
             return this.total - this.activeCount
         },
         allDone: {
-            get () {
+            get() {
                 return this.total === this.completedCount && this.total > 0
             },
-            set (checked) {
+            set(checked) {
                 this.completeAll(checked)
             }
         }
@@ -113,30 +133,35 @@ export default {
             const foundIndex = _findIndex(this.todos, { id: todo.id })
             this.$delete(this.todos, foundIndex)
         },
-        changeFilter(filter){
+        changeFilter(filter) {
             this.filter = filter
         },
-        completeAll(checked){
+        completeAll(checked) {
             const newTodos = this.db.get('todos').forEach(todo => {
                 todo.done = checked
             }).write()
 
             this.todos = _cloneDeep(newTodos)
         },
-        clearCompleted () {
+        clearCompleted() {
             _forEachRight(this.todos, todo => {
-                if(todo.done) {
+                if (todo.done) {
                     this.deleteTodo(todo)
                 }
             })
+        },
+        scrollToBottom() {
+            scrollTo(
+                0,
+                document.body.scrollHeight
+            )
+        },
+        scrollToTop() {
+            scrollTo(0, 0)
         }
     }
 }
 </script>
-<style scoped lang="scss">
-    button.active{
-        font-weight: bold;
-        background-color: darkblue;
-        color: #fff;
-    }
-</style>></style>
+<style lang="scss">
+@import "../scss/style";
+</style>

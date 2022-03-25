@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-item" :class="{ done }">
+    <div class="todo-item backdrop--white" :class="{ done }">
         <div class="item__inner" item--edit v-if="isEditMode">
             <input autofocus="true" type="text" :value="editedTitle" @input="editedTitle = $event.target.value"
                 @keypress.enter="editedTodo" @keypress.esc="offEditMode" />
@@ -9,17 +9,25 @@
             </div>
         </div>
         <div class="item__inner" item--normal v-else>
-            <input type="checkbox" v-model="done" />
-            <div class="item__title-wrap"></div>
-            <div class="item__title">
-                {{ todo.title }}
-            </div>
-            <div class="item__date">
-                {{ computedDate }}
+            <label>
+                <input v-model="done" type="checkbox" />
+                <span class="icon"><i class="material-icons-round">check</i></span>
+            </label>
+            <div class="item__title-wrap">
+                <div class="item__title">
+                    {{ todo.title }}
+                </div>
+                <div class="item__date">
+                    {{ computedDate }}
+                </div>
             </div>
             <div class="item__actions">
-                <button key="update" @click="onEditMode">수정</button>
-                <button key="delete" @click="delelteTodo">삭제</button>
+                <button class="btn" key="update" @click="onEditMode">
+                    <i class="material-icons-round">edit</i>
+                </button>
+                <button class="btn btn--danger" key="delete" @click="delelteTodo">
+                    <i class="material-icons-round">delete</i>
+                </button>
             </div>
         </div>
 
@@ -87,23 +95,3 @@ export default {
     }
 }
 </script>
-
-<style scoped lang="scss">
-.todo-item {
-    margin-bottom: 10px;
-
-    .item__inner {
-        display: flex;
-    }
-
-    .item__date {
-        font-size: 11px;
-    }
-
-    &.done {
-        .item__title {
-            text-decoration: line-through;
-        }
-    }
-}
-</style>
