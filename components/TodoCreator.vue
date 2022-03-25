@@ -1,7 +1,7 @@
 <template>
     <div>
-        <button @click="createTodo">추가</button>
         <input type="text" :placeholder="placeholder" :value="title" @input="title = $event.target.value" @keypress.enter="createTodo" />
+        <button @click="createTodo"><i class="material-icons-round">add_circle</i></button>
     </div>
 </template>
 <script>

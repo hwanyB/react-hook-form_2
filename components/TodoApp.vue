@@ -12,23 +12,19 @@
                         completedCount
                 }})</button>
             </div>
-            <!-- <div class="actions">
-                <input type="checkbox" v-model="allDone" />
-                <button @click="clearCompleted">완료된 항목 삭제</button>
-            </div> -->
-            <div class="actions clearfix">
-                <label class="float--left">
+            <div class="actions">
+                <label class="actions--left">
                     <input v-model="allDone" type="checkbox" />
                     <span class="icon"><i class="material-icons-round">done_all</i></span>
                 </label>
-                <div class="float--right clearfix">
-                    <button class="btn float--left" @click="scrollToTop">
-                        <i class="material-icons-round">expand_less</i>
+                <div class="actions--right">
+                    <button class="btn" @click="scrollToTop">
+                        <i class="material-icons-round">vertical_align_top</i>
                     </button>
-                    <button class="btn float--left" @click="scrollToBottom">
-                        <i class="material-icons-round">expand_more</i>
+                    <button class="btn" @click="scrollToBottom">
+                        <i class="material-icons-round">vertical_align_bottom</i>
                     </button>
-                    <button class="btn btn--danger float--left" @click="clearCompleted">
+                    <button class="btn btn--danger" @click="clearCompleted">
                         <i class="material-icons-round">delete_sweep</i>
                     </button>
                 </div>

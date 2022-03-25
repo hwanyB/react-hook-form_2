@@ -1,14 +1,18 @@
 <template>
     <div class="todo-item backdrop--white" :class="{ done }">
-        <div class="item__inner" item--edit v-if="isEditMode">
+        <div class="item__inner item--edit" v-if="isEditMode">
             <input autofocus="true" type="text" :value="editedTitle" @input="editedTitle = $event.target.value"
                 @keypress.enter="editedTodo" @keypress.esc="offEditMode" />
             <div class="item__actions">
-                <button key="complete" @click="editedTodo">완료</button>
-                <button key="cancle" @click="offEditMode">취소</button>
+                <button class="btn btn--primary" key="complete" @click="editedTodo">
+                    <i class="material-icons-round">done</i>
+                </button>
+                <button class="btn" key="cancle" @click="offEditMode">
+                    <i class="material-icons-round">clear</i>
+                </button>
             </div>
         </div>
-        <div class="item__inner" item--normal v-else>
+        <div class="item__inner item--normal" v-else>
             <label>
                 <input v-model="done" type="checkbox" />
                 <span class="icon"><i class="material-icons-round">check</i></span>
