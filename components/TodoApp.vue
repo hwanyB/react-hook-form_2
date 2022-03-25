@@ -1,9 +1,9 @@
 <template>
     <div class="todo-app">
-        <h1>안녕하세요 환희님!</h1>
-        <h3>해야 할 일이 {{ activeCount }}개 있습니다.</h3>
-        <todo-creator class="todo-app__creator" @create-todo="createTodo" />
-        <div class="todo-app__actions">
+        <h1 data-sal="slide-left" style="--sal-duration: 1.5s;">안녕하세요 환희님!</h1>
+        <h3 data-sal="slide-left" style="--sal-duration: 1.5s; --sal-delay:0.2s;">해야 할 일이 {{ activeCount }}개 있습니다.</h3>
+        <todo-creator data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.5s;" class="todo-app__creator" @create-todo="createTodo" />
+        <div data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.8s;" class="todo-app__actions">
             <div class="filters">
                 <button :class="{ active: filter === 'all' }" @click="changeFilter('all')">모든 항목 ({{ total }})</button>
                 <button :class="{ active: filter === 'active' }" @click="changeFilter('active')">해야 할 항목 ({{ activeCount
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div ref="todoAppList" class="todo-app__list">
+        <div data-sal="slide-down" style="--sal-duration: 1.5s; --sal-delay:1s;" ref="todoAppList" class="todo-app__list">
             <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
                 @delete-todo="deleteTodo" />
         </div>
@@ -46,6 +46,7 @@ import _find from 'lodash/find'
 import _assign from 'lodash/assign'
 import _findIndex from 'lodash/findIndex'
 import _forEachRight from 'lodash/forEachRight'
+import sal from "sal.js"
 
 import TodoItem from "./TodoItem";
 import TodoCreator from "./TodoCreator";
@@ -94,10 +95,9 @@ export default {
     created() {
         this.initDB()
     },
-    // mounted() {
-    //         const todoAppList = this.$refs.todoAppList
-    //         console.log(todoAppList.scrollTop)
-    // },
+    mounted() {
+            sal()
+    },
     methods: {
         initDB() {
             const adapter = new LocalStorage('todo-app')
@@ -150,14 +150,14 @@ export default {
                 }
             })
         },
+        scrollToTop() {
+            this.$refs.todoAppList.scrollTo(0, 0)
+        },
         scrollToBottom() {
             this.$refs.todoAppList.scrollTo(
                 0,
                 this.$refs.todoAppList.scrollHeight
             )
-        },
-        scrollToTop() {
-            this.$refs.todoAppList.scrollTo(0, 0)
         },
     },
 }
