@@ -1,8 +1,12 @@
 <template>
     <div class="todo-app">
+        <router-link to="/" class="todo-app__to-home" data-sal="fade" style="--sal-duration: 1.5s; --sal-delay:2s;">
+            <i class="material-icons-round">home</i>
+        </router-link>
         <h1 data-sal="slide-left" style="--sal-duration: 1.5s;">안녕하세요 환희님!</h1>
         <h3 data-sal="slide-left" style="--sal-duration: 1.5s; --sal-delay:0.2s;">해야 할 일이 {{ activeCount }}개 있습니다.</h3>
-        <todo-creator data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.5s;" class="todo-app__creator" @create-todo="createTodo" />
+        <todo-creator data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.5s;" class="todo-app__creator"
+            @create-todo="createTodo" />
         <div data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.8s;" class="todo-app__actions">
             <div class="filters">
                 <button :class="{ active: filter === 'all' }" @click="changeFilter('all')">모든 항목 ({{ total }})</button>
@@ -30,7 +34,8 @@
                 </div>
             </div>
         </div>
-        <div data-sal="slide-down" style="--sal-duration: 1.5s; --sal-delay:1s;" ref="todoAppList" class="todo-app__list">
+        <div data-sal="slide-down" style="--sal-duration: 1.5s; --sal-delay:1s;" ref="todoAppList"
+            class="todo-app__list">
             <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
                 @delete-todo="deleteTodo" />
         </div>
@@ -96,7 +101,7 @@ export default {
         this.initDB()
     },
     mounted() {
-            sal()
+        sal()
     },
     methods: {
         initDB() {

@@ -93,6 +93,7 @@ label {
         color: darken($color__lightgrey, 10%);
 
     }
+
     &--danger {
         $color__bg: crimson;
         color: $color__bg;
@@ -117,6 +118,31 @@ label {
 .todo-app {
     font-size: 1rem;
     font-family: 'Noto Sans KR', sans-serif;
+
+    .todo-app__to-home {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+        text-decoration: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(15px);
+
+        i {
+            color: $color__lightgrey;
+            &:hover {
+                color: $color__blue;
+            }
+        }
+        
+
+    }
 
     h1 {
         font-size: 80px;
@@ -155,9 +181,11 @@ label {
                 backdrop-filter: blur(15px);
                 color: $color__white;
             }
+
             &:hover {
                 background-color: $color__white;
             }
+
             &.active:hover {
                 background-color: $color__blue;
             }
@@ -285,11 +313,13 @@ label {
         display: flex;
         justify-content: center;
         align-items: center;
+
         i {
             color: rgba(0, 104, 223, 0.5);
             display: block;
             font-size: 30px;
         }
+
         i:hover {
             color: $color__blue;
         }
