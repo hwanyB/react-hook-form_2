@@ -11,6 +11,10 @@ module.exports = (env, opts) => {
     // 개발용, 제품용 중복되는 옵션들..
     resolve: {
       extensions: [".vue", ".js"],
+      alias: {
+        '~': path.join(__dirname),
+        'scss': path.join(__dirname, './scss')
+      }
     },
     entry: {
       app: ["@babel/polyfill", path.join(__dirname, "main.js")],

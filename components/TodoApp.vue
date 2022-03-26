@@ -48,8 +48,8 @@ import _findIndex from 'lodash/findIndex'
 import _forEachRight from 'lodash/forEachRight'
 import sal from "sal.js"
 
-import TodoItem from "./TodoItem";
-import TodoCreator from "./TodoCreator";
+import TodoItem from "~/components/TodoItem";
+import TodoCreator from "~/components/TodoCreator";
 
 export default {
     components: {
