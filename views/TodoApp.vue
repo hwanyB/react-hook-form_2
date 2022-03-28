@@ -9,12 +9,12 @@
             @create-todo="createTodo" />
         <div data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.8s;" class="todo-app__actions">
             <div class="filters">
-                <button :class="{ active: filter === 'all' }" @click="changeFilter('all')">모든 항목 ({{ total }})</button>
-                <button :class="{ active: filter === 'active' }" @click="changeFilter('active')">해야 할 항목 ({{ activeCount
-                }})</button>
-                <button :class="{ active: filter === 'completed' }" @click="changeFilter('completed')">완료된 항목 ({{
+                <router-link to="all" tag="button">모든 항목 ({{ total }})</router-link>
+                <router-link to="active" tag="button">해야 할 항목 ({{ activeCount
+                }})</router-link>
+                <router-link to="completed" tag="button">완료된 항목 ({{
                         completedCount
-                }})</button>
+                }})</router-link>
             </div>
             <div class="actions">
                 <label class="actions--left">
@@ -64,13 +64,12 @@ export default {
     data() {
         return {
             db: null,
-            todos: [],
-            filter: 'all'
+            todos: []
         }
     },
     computed: {
         filteredTodos() {
-            switch (this.filter) {
+            switch (this.$route.params.id) {
                 case 'all': default:
                     return this.todos
                 case 'active':
@@ -137,9 +136,6 @@ export default {
             this.db.get('todos').remove({ id: todo.id }).write()
             const foundIndex = _findIndex(this.todos, { id: todo.id })
             this.$delete(this.todos, foundIndex)
-        },
-        changeFilter(filter) {
-            this.filter = filter
         },
         completeAll(checked) {
             const newTodos = this.db.get('todos').forEach(todo => {

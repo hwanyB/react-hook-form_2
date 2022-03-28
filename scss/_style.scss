@@ -176,7 +176,7 @@ label {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(15px);
 
-            &.active {
+            &.router-link-active {
                 background-color: rgba(0, 104, 223, 0.5);
                 backdrop-filter: blur(15px);
                 color: $color__white;
@@ -186,7 +186,7 @@ label {
                 background-color: $color__white;
             }
 
-            &.active:hover {
+            &.router-link-active:hover {
                 background-color: $color__blue;
             }
         }
