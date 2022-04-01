@@ -5,8 +5,6 @@ import cryptoRandomString from "crypto-random-string"
 import _cloneDeep from "lodash/cloneDeep"
 import _find from "lodash/find"
 import _assign from "lodash/assign"
-import _find from 'lodash/find'
-import _assign from 'lodash/assign'
 import _findIndex from 'lodash/findIndex'
 import _forEachRight from 'lodash/forEachRight'
 
@@ -15,8 +13,19 @@ export default {
   state: () => ({
     db: null,
     todos: [],
+    filter: 'all'
   }),
   getters: {
+    filteredTodos(state) {
+      switch (state.filter) {
+          case 'all': default:
+              return state.todos
+          case 'active':
+              return state.todos.filter(todo => !todo.done)
+          case 'completed':
+              return state.todos.filter(todo => todo.done)
+      }
+  },
     total(state) {
       return state.todos.length
     },
@@ -54,6 +63,9 @@ export default {
     },
     updateTodo (state, { todo, key, value}) {
         todo[key] = value
+    },
+    updateFilter (state, filter) {
+      state.filter = filter
     }
   },
   actions: {
@@ -103,7 +115,7 @@ export default {
     clearCompleted({ state, dispatch }) {
         _forEachRight(state.todos, todo => {
             if (todo.done) {
-                dispatch(deleteTodo, todo)
+                dispatch('deleteTodo', todo)
             }
         })
     },

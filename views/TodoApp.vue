@@ -5,8 +5,7 @@
         </router-link>
         <h1 data-sal="slide-left" style="--sal-duration: 1.5s;">안녕하세요 환희님!</h1>
         <h3 data-sal="slide-left" style="--sal-duration: 1.5s; --sal-delay:0.2s;">해야 할 일이 {{ activeCount }}개 있습니다.</h3>
-        <todo-creator data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.5s;" class="todo-app__creator"
-            @create-todo="createTodo" />
+        <todo-creator data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.5s;" class="todo-app__creator" />
         <div data-sal="slide-up" style="--sal-duration: 1.5s; --sal-delay:0.8s;" class="todo-app__actions">
             <div class="filters">
                 <router-link to="all" tag="button">모든 항목 ({{ total }})</router-link>
@@ -36,13 +35,13 @@
         </div>
         <div data-sal="slide-down" style="--sal-duration: 1.5s; --sal-delay:1s;" ref="todoAppList"
             class="todo-app__list">
-            <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" @update-todo="updateTodo"
-                @delete-todo="deleteTodo" />
+            <todo-item v-for="todo in filteredTodos" :key="todo.id" :todo="todo" />
         </div>
     </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import sal from "sal.js"
 import TodoItem from "~/components/TodoItem";
 import TodoCreator from "~/components/TodoCreator";
@@ -53,16 +52,15 @@ export default {
         TodoItem
     },
     computed: {
-        filteredTodos() {
-            switch (this.$route.params.id) {
-                case 'all': default:
-                    return this.todos
-                case 'active':
-                    return this.todos.filter(todo => !todo.done)
-                case 'completed':
-                    return this.todos.filter(todo => todo.done)
-            }
-        },
+        ...mapState('todoApp', [
+            'todos'
+        ]),
+        ...mapGetters('todoApp', [
+            'filteredTodos',
+            'total',
+            'activeCount',
+            'completedCount'
+        ]),
         allDone: {
             get() {
                 return this.total === this.completedCount && this.total > 0
@@ -72,6 +70,11 @@ export default {
             }
         }
     },
+    watch: {
+        $route () {
+            this.updateFilter(this.$route.params.id)
+        }
+    },
     created() {
         this.initDB()
     },
@@ -79,6 +82,14 @@ export default {
         sal()
     },
     methods: {
+        ...mapActions('todoApp', [
+            'clearCompleted',
+            'completeAll',
+            'initDB'
+        ]),
+        ...mapMutations('todoApp', [
+            'updateFilter'
+        ]),
         scrollToTop() {
             this.$refs.todoAppList.scrollTo(0, 0)
         },
