@@ -20,8 +20,8 @@ module.exports = (env, opts) => {
       app: ["@babel/polyfill", path.join(__dirname, "main.js")],
     },
     output: {
-      filename: "[name].js",
-      path: path.join(__dirname, "dist"),
+      filename: "[name].bundle.js",
+      path: path.join(__dirname, "../docs"),
     },
     module: {
       rules: [
