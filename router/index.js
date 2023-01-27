@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '~/views/Home'
 import TodoApp from '~/views/TodoApp'
 
 Vue.use(VueRouter)
@@ -10,12 +9,7 @@ const routes = [
     {
         name: 'index',
         path: '/',
-        component: Home
-    },
-    {
-        name: 'todos',
-        path: '/todos',
-        redirect: '/todos/all',
+        redirect: '/all',
         component: TodoApp,
         children: [
             {

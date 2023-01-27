@@ -3,7 +3,7 @@ $color__darkgrey: #333333;
 $color__lightgrey: #a5a5a5;
 $color__blue: #0068df;
 $color__white: #fff;
-$color__body-bg: #EFF3F6;
+$color__body-bg: #e2e8ec;
 
 $media--medium: "max-width: 1200px";
 $media--small: "max-width: 780px";
@@ -17,9 +17,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 50px 260px;
-    // background: $color__body-bg;
-    background-image: url(../assets/bgimg.jpg);
-    background-size: cover;
+    background: $color__body-bg;
     color: $color__darkgrey;
     font-family: 'Noto Sans KR', sans-serif;
 
@@ -113,7 +111,6 @@ label {
     background-color: rgba(0, 104, 223, 0.5);
     backdrop-filter: blur(15px);
 }
-
 // TODO APP
 .todo-app {
     font-size: 1rem;
@@ -220,6 +217,9 @@ label {
     width: 100%;
     height: 55vh;
     overflow-y: scroll;
+    &::-webkit-scrollbar{
+        display: none;
+    }
 
     // TODO ITEM
     .todo-item {
